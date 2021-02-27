@@ -1,0 +1,32 @@
+.experienceBar {
+    display: flex;
+    align-items: center;
+}
+
+.experienceBar span {
+    font-size: 1rem;
+}
+
+/* O sinal > indica que será aplicado apenas no primeiro nível de div dentro daquela classe */
+.experienceBar > div {
+    flex: 1; /* Ocupa a largura máxima possível do container */
+    height: 4px;
+    border-radius: 4px;
+    background: var(--gray-line);
+    margin: 0 1.5rem;
+    position: relative;
+}
+
+.experienceBar > div > div {
+    height: 4px;
+    border-radius: 4px;
+    background: var(--green);
+}
+
+span.currentExperience {
+    position: absolute;
+    top: 12px;
+    /* Propriedade que permite mudar o eixo do elemento. Nesse caso, ta centralizando 
+    a referência do elemento.*/
+    transform: translateX(-50%);
+}
