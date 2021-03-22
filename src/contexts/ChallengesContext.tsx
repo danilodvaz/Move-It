@@ -4,6 +4,8 @@
 // Todo componente que estiver dentro do contexto, terá acesso aos dados, bastar utilizar o 
 // useContext e importar este arquivo de contexto.
 import { createContext, ReactNode, useEffect, useState } from 'react';
+// Biblioteca que facilita trabalhar com Cookies
+import Cookies from 'js-cookie';
 import challenges from '../../challenges.json';
 
 interface Challenge {
@@ -26,16 +28,22 @@ interface ChallengesContextData {
 
 interface ChallengesProviderProps {
     // Como o children é um componente react, pode ser tipado como ReactNode, que aceita qualquer elemento filho
-    children: ReactNode
+    children: ReactNode;
+    level: number;
+    currentExperience: number;
+    challengesCompleted: number;
 }
 
 // Cria o contexto e define o formato
 export const ChallengesContext = createContext({} as ChallengesContextData);
 
-export function ChallengesProvider({children}: ChallengesProviderProps) {
-    const [level, setLevel] = useState(1);
-    const [currentExperience, setCurrentExperience] = useState(0);
-    const [challengesCompleted, setChallengesCompleted] = useState(0);
+// Desestrutura o objeto pegando o children e colocando o resto na variável rest
+export function ChallengesProvider({children, ...rest}: ChallengesProviderProps) {
+
+    // Utiliza como default o que vem dos cookies. Caso não exista, utiliza os valores padrões
+    const [level, setLevel] = useState(rest.level ?? 1);
+    const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
+    const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
 
     const [activeChallenge, setActiveChallenge] = useState(null);
 
@@ -45,7 +53,13 @@ export function ChallengesProvider({children}: ChallengesProviderProps) {
     // Para acessar a resposta, pode ser utilizado o Notification.permission
     useEffect(() => {
         Notification.requestPermission();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        Cookies.set('level', String(level));
+        Cookies.set('currentExperience', String(currentExperience));
+        Cookies.set('challengesCompleted', String(challengesCompleted));
+    }, [level, currentExperience, challengesCompleted]);
 
     function levelUp() {
         setLevel(level + 1);
