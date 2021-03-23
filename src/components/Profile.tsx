@@ -7,7 +7,7 @@ export function Profile() {
     
     return (
         <div className={styles.profileContainer}>
-            <img src="https://media-exp1.licdn.com/dms/image/C4E03AQFNOc4BRE7r7Q/profile-displayphoto-shrink_800_800/0/1600084186743?e=1619654400&v=beta&t=y5wz-6YUlS58lQKwpQrJ3fk-O68R72noX9bxeDs5TCU" alt="Danilo Domingues"/>
+            <img src="https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80" alt="Doguinho"/>
             <div>
                 <strong>Danilo Domingues</strong>
                 <p>
